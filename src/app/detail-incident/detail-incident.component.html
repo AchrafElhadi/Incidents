@@ -1,0 +1,92 @@
+<div class="container ">
+    <div class="mt-5">
+    <ng-template  [ngIf]="incident" [ngIfElse]="loading">
+        <div class="row">
+            <div class="col-6">
+                 <h3 class="mb-5">Details</h3>
+                 <div class="row">
+                 <div class="col">
+                 <h6>Objet</h6>
+                 <p>{{incident.objet}}</p>
+                 
+                 <h6>Telephone</h6>
+                 <p>{{incident.telephone}}</p>
+                 <h6>Adresse</h6>
+                
+                 <p>{{incident.adresse}}</p>
+                 <h6>Raison</h6>
+                 <p>{{incident.raison}}</p>
+                </div>
+                 <div class="col">
+
+                 
+                 <div *ngIf="incident.document">
+                    <h6>Document</h6>
+                    <p><a style="text-decoration: none;" href="{{'http://localhost:8000/image/'+incident.document}}">{{incident.document}}</a></p>
+                </div>
+                 <h6>Date creation</h6>
+                 <p>{{incident.creation}}</p>
+                 <h6>Statut</h6>
+                 <p>{{incident.status}}</p>
+                 <h6>Gravite</h6>
+                 <p>{{convertToname(incident.gravite) }}</p>
+                
+                </div>
+            </div>
+    
+            </div>
+            
+            <div class="col-6" >
+                <h3 class="mb-5">Messages</h3>
+                <div style=" overflow-y: auto;border-radius: 6px 3px 0px 0px;padding: 2%;height: 300px;;border: 2px solid gainsboro; border-bottom: none;" >
+                    <!-- <div class="mb-4" style="border: 1px solid gray;padding: 2% 2% 0 2%; border-radius: 5px;overflow:auto; height:140px;">
+                        <span style="color: gray; font-size: 14px;">Client</span> 
+                        <p class="mt-2">
+                            {{incident.description}}
+                            </p>
+                    </div>
+                    <div class="mb-4" style="border: 1px solid;padding: 2% 2% 0 2%; border-radius: 5px;overflow:auto; height:140px;">
+                        <span style="color: gray; font-size: 14px;">Client</span> 
+                        <p class="mt-2">
+                            {{incident.description}}
+                            </p>
+                    </div> -->
+                    <div class="mb-4" style= "position: relative;border: 1px solid;padding: 2% 2% 0 2%; border-radius: 5px;overflow:auto; height:140px;">
+                        <span style="color: gray; font-size: 14px;">Client</span> 
+                        <span style="    position: absolute; right: 0;padding-right: 7px;color: gray; font-size: 14px;">17/07/2022</span> 
+                        <p class="mt-2">
+                            Bonjour <br>
+                            {{incident.description}}
+                            </p>
+                    </div>
+                    <div class="mb-4"  style= "position: relative;border: 1px solid;padding: 2% 2% 0 2%; border-radius: 5px;overflow:auto; height:140px;">
+                        <span style="color: gray; font-size: 14px;">Client</span> 
+                        <span style="    position: absolute; right: 0;padding-right: 7px;color: gray; font-size: 14px;">17/07/2022</span> 
+                        <p class="mt-2">
+                            {{incident.description}}
+                            </p>
+                    </div>
+                    <div class="mb-4"  style= "position: relative;border: 1px solid;padding: 2% 2% 0 2%; border-radius: 5px;overflow:auto; height:140px;">
+                        <span style="color: gray; font-size: 14px;">Client</span> 
+                        <span style="    position: absolute; right: 0;padding-right: 7px;color: gray; font-size: 14px;">17/07/2022</span> 
+                        <p class="mt-2">
+                            {{incident.description}}
+                            </p>
+                    </div>
+                </div>
+                <form>
+                    <input type="text" class="text-input" style="width:100%;height: 6vh;" >
+                </form>
+            </div>
+        </div>
+    </ng-template>
+   
+</div>
+<ng-template #loading>
+    <div class="text-center" style="margin-top: 29vh;">
+                <div class="spinner-border" style="width: 7rem; height: 7rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div> 
+                </div>
+</ng-template>
+</div>

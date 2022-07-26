@@ -1,0 +1,49 @@
+<div class="container ">
+    <form class="row g-3 mt-5" *ngIf="inc" (submit)="postincident()" [formGroup]="nameForm" style="max-width: 650px;margin: auto;">
+      <div class="col-md-6">
+            <input type="text" hidden formControlName="id">
+          <label for="Objet" class="form-label " >Objet</label>
+          <input   formControlName="objet" type="email" class="form-control" id="Objet">
+          <label for="telephone" class="form-label mt-1">Numero telephone</label>
+
+          <input formControlName="telephone" type="tel" class="form-control" id="telephone">
+
+        </div>
+        <div class="col-md-6">
+          <label for="Description" class="form-label">Description</label>
+          <textarea formControlName="description" class="form-control" id="Description" rows="4"></textarea>
+        </div>
+
+          <div class="col-md-6">
+            <label for="adresse" class="form-label">adresse</label>
+            <input formControlName="adresse" type="text" class="form-control" id="adresse">
+          </div>
+       
+          <div class="col-md-6">
+            <label for="Raison"class="form-label">Raison</label>
+
+            <select  class="form-select" aria-label="Default select example" formControlName="raison">
+              <option >Configuration produit</option>
+              <option >Demande d'intervention</option>
+              <option >Demander une annulation</option>
+              <option >Date de prise en charge</option>
+            </select>          
+           </div>
+
+           <div class="col-md-6">
+            <label for="Document"class="form-label">Document</label>
+            <input type="file" class="form-control"  (change)="getdoc($event)"  id="Document">
+         
+        </div>
+        <div class="col-md-6">
+          <label for="Document"class="form-label">Gravite</label>
+          <select  class="form-select" aria-label="Default select example" formControlName="gravite">
+            <option >Low</option>
+            <option >Medium</option>
+            <option >High</option>
+          </select>          
+      </div>
+            <button class="btn btn-dark">Create</button>
+      </form>
+
+</div>
