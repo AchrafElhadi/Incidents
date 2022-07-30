@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Incident } from '../incident';
+import { Incident } from '../incidents.model';
+import { Incidentpagination } from '../incidents.model';
 import { IncidentsService } from '../services/incidents.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { IncidentsService } from '../services/incidents.service';
 })
 export class IncidentsComponent implements OnInit {
 
-  incidents!:any
+  incidents!:Incidentpagination
   constructor(private incidentService:IncidentsService) { }
 
   ngOnInit(): void {
@@ -31,13 +32,13 @@ export class IncidentsComponent implements OnInit {
   supp(id:number)
   {
     // console.log("ho")
-    // this.incidentService.supp(id).subscribe({
-    //   next:(res)=>{
-    //    this.incidents= this.incidents.filter(v=>v.id!=id)
-    //   },
-    //   error:(error)=>{
+    this.incidentService.supp(id).subscribe({
+      next:(res)=>{
+       this.incidents.listincidentFront= this.incidents.listincidentFront.filter(v=>v.id!=id)
+      },
+      error:(error)=>{
         
-    //   }
-    // })
+      }
+    })
   }
 }

@@ -1,0 +1,50 @@
+<div class="container">
+    <ng-template [ngIf]="incidents" [ngIfElse]="loading">
+   
+       <table class="table mt-5">
+           <thead class="table-secondary">
+               <tr>
+                   <th scope="col" >#</th>
+                   <th scope="col">Objet</th>
+                   <th scope="col">Raison</th>
+                   <th scope="col">Telephone</th>
+                   <th scope="col">Statut</th>
+                   <th scope="col">Gravite</th>
+                   <th scope="col"></th>
+                 </tr>
+           </thead>
+           <tbody>
+               <tr>
+                  
+                 <tr  *ngFor="let inc of incidents.listincidentFront">
+                   <th scope="row">{{inc.id}}</th>
+                   <td>{{inc.objet}}</td>
+                   <td>{{inc.raison}}</td>
+                   <td>{{inc.telephone}}</td>
+                   <td>{{inc.status}}</td>
+                   <td [textContent]="convertToName(inc.gravite)"></td>
+                   <td><a routerLink="{{'/admin/DetailIncident/'+inc.id}}" class="btn btn-secondary">Detail</a>
+                   </td>
+                  
+                  
+                 </tr>
+           </tbody>
+         </table>
+         <nav aria-label="Page navigation example">
+          
+           <ul class="pagination">
+             <li class="page-item"><button class="page-link" (click)="getIncBypage(0)">First</button></li>
+             <li *ngFor="let v of [].constructor(incidents.nbpage);let i= index" [ngClass]="(i==incidents.numPage)?'page-item active':'page-item'" ><button (click)="getIncBypage(i)" class="page-link " href="#" >{{i+1}}</button></li>
+             <li class="page-item"><button class="page-link" (click)="getIncBypage((incidents.nbpage)-1)">Last</button></li>
+           </ul>
+         </nav>
+       </ng-template>
+   
+         <ng-template #loading>
+           <div class="text-center" style="margin-top: 29vh;">
+                       <div class="spinner-border" style="width: 7rem; height: 7rem;" role="status">
+                           <span class="visually-hidden">Loading...</span>
+                         </div> 
+                       </div>
+       </ng-template>
+   </div>

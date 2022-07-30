@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Incident } from '../incident';
+import { Incident, Incidentpagination } from '../incidents.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +16,9 @@ export class IncidentsService {
    {
     return this.http.post<any>("http://localhost:8000/createIncidents",data);
    }
-   getIncidents(page:Number):Observable<Array<Incident>>
+   getIncidents(page:Number):Observable<Incidentpagination>
    {
-    return this.http.get<Array<Incident>>("http://localhost:8000/getIncidents/"+1+"?page="+page+"&size="+5);
+    return this.http.get<Incidentpagination>("http://localhost:8000/getIncidents/"+1+"?page="+page+"&size="+5);
    }
 
    getDetailIncident(id:number):Observable<Incident>
@@ -46,5 +46,9 @@ export class IncidentsService {
    {
       const tab= ["Low","Medium","High"]
       return tab.indexOf(name).toString()
+   }
+   getAllIncidents():Observable<Array<Incident>>
+   {
+      return this.http.get<Array<Incident>>("http://localhost:8000/getIncidents");
    }
 }

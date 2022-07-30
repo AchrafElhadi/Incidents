@@ -13,7 +13,13 @@ import { IncidentsComponent } from './incidents/incidents.component';
 import { DetailIncidentComponent } from './detail-incident/detail-incident.component';
 import { EditIncidentComponent } from './edit-incident/edit-incident.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
-import { ClientlayoutComponent } from './clientlayout/clientlayout.component'
+import { ClientlayoutComponent } from './clientlayout/clientlayout.component';
+import { AdminIncidentsComponent } from './admin-incidents/admin-incidents.component';
+import { AdminDetailIncidentComponent } from './admin-detail-incident/admin-detail-incident.component';
+import { AdminCreateClientComponent } from './admin-create-client/admin-create-client.component';
+import { AdminClientsComponent } from './admin-clients/admin-clients.component';
+import { AdminConsultantsComponent } from './admin-consultants/admin-consultants.component';
+import { AdminCreateConsultantComponent } from './admin-create-consultant/admin-create-consultant.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +32,12 @@ import { ClientlayoutComponent } from './clientlayout/clientlayout.component'
     EditIncidentComponent,
     AdminLayoutComponent,
     ClientlayoutComponent,
+    AdminIncidentsComponent,
+    AdminDetailIncidentComponent,
+    AdminCreateClientComponent,
+    AdminClientsComponent,
+    AdminConsultantsComponent,
+    AdminCreateConsultantComponent,
    ],
   imports: [
     BrowserModule,

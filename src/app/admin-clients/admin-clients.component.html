@@ -1,0 +1,41 @@
+<div class="container">
+    <ng-template [ngIf]="clients" [ngIfElse]="loading">
+   
+       <table class="table mt-5">
+           <thead class="table-secondary">
+               <tr>
+                   <th scope="col" >#</th>
+                   <th scope="col">Nom</th>
+                   <th scope="col">Prenom</th>
+                   <th scope="col">Numero</th>
+                   <th scope="col">Email</th>
+                   <th scope="col"></th>
+                 </tr>
+           </thead>
+           <tbody>
+               <tr>
+                  
+                 <tr  *ngFor="let cl of clients">
+                   <th scope="row">{{cl.id}}</th>
+                   <td>{{cl.nom}}</td>
+                   <td>{{cl.prenom}}</td>
+                   <td>{{cl.numero}}</td>
+                   <td>{{cl.email}}</td>
+                   <!-- <td><a routerLink="{{'/admin/Detailclident/'+cl.id}}" class="btn btn-secondary">Detail</a> -->
+                   <!-- </td> -->
+                  
+                  
+                 </tr>
+           </tbody>
+         </table>
+       
+       </ng-template>
+   
+         <ng-template #loading>
+           <div class="text-center" style="margin-top: 29vh;">
+                       <div class="spinner-border" style="width: 7rem; height: 7rem;" role="status">
+                           <span class="visually-hidden">Loading...</span>
+                         </div> 
+                       </div>
+       </ng-template>
+   </div>

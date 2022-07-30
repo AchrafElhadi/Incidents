@@ -1,0 +1,62 @@
+<div class="container ">
+    <div class="mt-5">
+    <ng-template  [ngIf]="incident && consultants" [ngIfElse]="loading">
+        <div class="row">
+            <div class="col-12">
+                 <h3 class="mb-5">Details</h3>
+                 <div class="row">
+                 <div class="col">
+                 <h6>Objet</h6>
+                 <p>{{incident.objet}}</p>
+                 
+                 <h6>Telephone</h6>
+                 <p>{{incident.telephone}}</p>
+                 <h6>Adresse</h6>
+                
+                 <p>{{incident.adresse}}</p>
+                 <h6>Raison</h6>
+                 <p>{{incident.raison}}</p>
+                </div>
+                 <div class="col">
+
+                 
+                 <div *ngIf="incident.document">
+                    <h6>Document</h6>
+                    <p><a style="text-decoration: none;" href="{{'http://localhost:8000/image/'+incident.document}}">{{incident.document}}</a></p>
+                </div>
+                 <h6>Date creation</h6>
+                 <p>{{incident.creation}}</p>
+                 <h6>Statut</h6>
+                 <p>{{incident.status}}</p>
+                 <h6>Gravite</h6>
+                 <p>{{convertToname(incident.gravite) }}</p>
+                
+                </div>
+                <div class="col">
+                    <form [formGroup]="consultform" (submit)="PostaffectConsult()">
+                        <label for="Document"class="form-label">Consultant</label>
+                        <select   class="form-select mb-3" aria-label="Default select example" formControlName="consult" >
+                            <option [ngValue]=null>Affecter consultant</option>
+                            <option *ngFor="let v of consultants" [ngValue]="v.id">{{v.nom}}</option>
+                            
+                        </select>   
+                        <button style="width: 100%;"class="btn btn-secondary">Edit</button>
+                    </form>  
+                </div>
+            </div>
+    
+            </div>
+            
+           
+        </div>
+    </ng-template>
+   
+</div>
+<ng-template #loading>
+    <div class="text-center" style="margin-top: 29vh;">
+                <div class="spinner-border" style="width: 7rem; height: 7rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div> 
+                </div>
+</ng-template>
+</div>
