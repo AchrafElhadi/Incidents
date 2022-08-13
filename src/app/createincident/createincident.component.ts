@@ -16,7 +16,7 @@ export class CreateincidentComponent implements OnInit {
   nameForm!:FormGroup
   obj:string=''
   filee!:any
-  file!:File
+  file!:File[];
   fileUrl: any;
   url: any;
   data:any;
@@ -45,7 +45,17 @@ export class CreateincidentComponent implements OnInit {
 
   getdoc(event:any)
   {
-     this.file= event.target.files[0]
+    let filevalues=[]
+
+     
+        for(let i=0;i<event.target.files.length;i++)
+          filevalues.push( event.target.files[i])
+      
+        
+        this.file=filevalues
+    
+      
+   
   }
   postincident()
   {
@@ -55,10 +65,12 @@ export class CreateincidentComponent implements OnInit {
     data.append('telephone',this.nameForm.value.telephone)
     data.append('adresse',this.nameForm.value.adresse)
     data.append('raison',this.nameForm.value.raison)
-    if(this.file!=null)
-    data.append('document',this.file)
+   
+      for(let i=0;i<this.file.length;i++)
+          data.append('document[]',this.file[i])
  
-    data.append('client_id',"1") 
+    data.append('client_id',"1")
+    
     this.incideService.postIncident(data).subscribe(res=>{
       console.log(res)
       this.router.navigate(['Incidents'])

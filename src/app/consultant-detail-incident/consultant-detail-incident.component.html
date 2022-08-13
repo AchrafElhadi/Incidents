@@ -1,8 +1,8 @@
 <div class="container ">
     <div class="mt-5">
-    <ng-template  [ngIf]="incident && messages" [ngIfElse]="loading">
+    <ng-template  [ngIf]="incident" [ngIfElse]="loading">
         <div class="row">
-            <div class="col-6">
+            <div class="col-sm-6">
                  <h3 class="mb-5">Details</h3>
                  <div class="row">
                  <div class="col">
@@ -66,11 +66,9 @@
                 <form  style="border: 2px solid gainsboro; outline: none; width: 100%; border-right: none; height: 6vh;" [formGroup]="formMessage" (submit)="sendmessage()">
                     <input type="text" class="text-input" style="width: 81.7%;height: 5vh;border: none;outline: none;text-indent: 5px;" formControlName="message">
                     <button style="border: none;background-color: #365dcd;height: 100%;width: 18.3%;color: white;border-radius: 0 3px 3px 0;">Send</button>
-                  <!-- <br><br>
-                    <input type="file" multiple class="form-control"  (change)="getdoc($event)"  id="Document"> -->
                 </form>
-                
             </div>
+        
         </div>
     </ng-template>
    

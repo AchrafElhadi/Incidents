@@ -13,6 +13,9 @@ import { AdminCreateClientComponent } from './admin-create-client/admin-create-c
 import { AdminClientsComponent } from './admin-clients/admin-clients.component';
 import { AdminConsultantsComponent } from './admin-consultants/admin-consultants.component';
 import { AdminCreateConsultantComponent } from './admin-create-consultant/admin-create-consultant.component';
+import { ConsultantlayoutComponent } from './consultantlayout/consultantlayout.component';
+import { ConsultantIncidentsComponent } from './consultant-incidents/consultant-incidents.component';
+import { ConsultantDetailIncidentComponent } from './consultant-detail-incident/consultant-detail-incident.component';
 const routes: Routes = [
 
  
@@ -38,8 +41,13 @@ const routes: Routes = [
 
 
 
-  ]}
+  ]},
 
+  {path:'consultant',component:ConsultantlayoutComponent,children:[
+    {path:'incidents',component:ConsultantIncidentsComponent},
+    {path:'DetailIncident/:id',component:ConsultantDetailIncidentComponent}
+    
+  ]}
 ];
 
 @NgModule({

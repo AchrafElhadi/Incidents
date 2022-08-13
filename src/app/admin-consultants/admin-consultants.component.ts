@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Consultant } from '../persons.model';
 import { ConsultantService } from '../services/consultant.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { ConsultantService } from '../services/consultant.service';
 })
 export class AdminConsultantsComponent implements OnInit {
 
-  consultants!:any
+  consultants!:Array<Consultant>
    constructor(private navconsult:Router,private consultantService:ConsultantService) {
    }
 
@@ -20,6 +21,7 @@ export class AdminConsultantsComponent implements OnInit {
     next:(res)=>
     {
       this.consultants=res;
+      console.log(res)
     },
     error:(error)=>{
       console.log(error)
@@ -31,7 +33,7 @@ export class AdminConsultantsComponent implements OnInit {
   {
     this.consultantService.deleteConsultant(id).subscribe({
       next:(res)=>{
-        console.log(res)
+        this.consultants=this.consultants.filter(v=>v.id!=id)
         
       },
       error:(error)=>{

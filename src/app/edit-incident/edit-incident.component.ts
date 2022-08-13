@@ -14,7 +14,7 @@ export class EditIncidentComponent implements OnInit {
   nameForm!:FormGroup
   obj:string=''
   filee!:any
-  file!:File
+  file:File[]=[]
   fileUrl: any;
   url: any;
   data:any;
@@ -55,8 +55,14 @@ export class EditIncidentComponent implements OnInit {
   
   getdoc(event:any)
   {
-     this.file= event.target.files[0]
-  }
+    let filevalues=[]
+
+     
+    for(let i=0;i<event.target.files.length;i++)
+      filevalues.push( event.target.files[i])
+  
+    
+    this.file=filevalues  }
   postincident()
   {
     const grav=this.incideService.indexOfname( this.nameForm.value.gravite)    
@@ -67,8 +73,9 @@ export class EditIncidentComponent implements OnInit {
     data.append('telephone',this.nameForm.value.telephone)
     data.append('adresse',this.nameForm.value.adresse)
     data.append('raison',this.nameForm.value.raison)
-    if(this.file!=null)
-    data.append('document',this.file)
+    for(let i=0;i<this.file.length;i++)
+    data.append('document[]',this.file[i])
+
  
     data.append('client_id',"1")
     data.append('gravite',grav)

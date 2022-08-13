@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
+
 import { Incident } from '../incidents.model';
 import { Incidentpagination } from '../incidents.model';
 import { IncidentsService } from '../services/incidents.service';
@@ -13,8 +15,11 @@ export class IncidentsComponent implements OnInit {
   incidents!:Incidentpagination
   constructor(private incidentService:IncidentsService) { }
 
+
   ngOnInit(): void {
    this.getIncBypage(0)
+  
+
   }
 
   convertToName(num:string):string
@@ -40,5 +45,7 @@ export class IncidentsComponent implements OnInit {
         
       }
     })
+
+
   }
 }

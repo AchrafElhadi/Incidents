@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultantService } from '../services/consultant.service';
 import { IncidentsService } from '../services/incidents.service';
-
+import {Stomp} from '@stomp/stompjs'
 @Component({
   selector: 'app-admin-detail-incident',
   templateUrl: './admin-detail-incident.component.html',
@@ -43,7 +43,6 @@ export class AdminDetailIncidentComponent implements OnInit {
     {
       console.log(error)
     })
-
    
     
   }
@@ -71,6 +70,11 @@ export class AdminDetailIncidentComponent implements OnInit {
     },error=>{
       console.log(error)
     });
+    
+    
+ 
+
   }
+
 
 }

@@ -19,7 +19,10 @@ import { AdminDetailIncidentComponent } from './admin-detail-incident/admin-deta
 import { AdminCreateClientComponent } from './admin-create-client/admin-create-client.component';
 import { AdminClientsComponent } from './admin-clients/admin-clients.component';
 import { AdminConsultantsComponent } from './admin-consultants/admin-consultants.component';
-import { AdminCreateConsultantComponent } from './admin-create-consultant/admin-create-consultant.component'
+import { AdminCreateConsultantComponent } from './admin-create-consultant/admin-create-consultant.component';
+import { ConsultantlayoutComponent } from './consultantlayout/consultantlayout.component';
+import { ConsultantIncidentsComponent } from './consultant-incidents/consultant-incidents.component';
+import { ConsultantDetailIncidentComponent } from './consultant-detail-incident/consultant-detail-incident.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +41,9 @@ import { AdminCreateConsultantComponent } from './admin-create-consultant/admin-
     AdminClientsComponent,
     AdminConsultantsComponent,
     AdminCreateConsultantComponent,
+    ConsultantlayoutComponent,
+    ConsultantIncidentsComponent,
+    ConsultantDetailIncidentComponent,
    ],
   imports: [
     BrowserModule,
