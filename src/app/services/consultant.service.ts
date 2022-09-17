@@ -24,8 +24,8 @@ export class ConsultantService {
   {
     return this.http.post<any>("http://localhost:8000/postConsultant",data);
   }
-  getincidents(page:number,size:number):Observable<any>
+  getincidents(page:number,user:number):Observable<any>
   {
-      return this.http.get("http://localhost:8000/getIncidentsByConsultant/"+2+"?page="+page+"&size="+size);
+      return this.http.get("http://localhost:8000/getIncidentsByConsultant/"+user+"?page="+page+"&size="+5);
   }
 }

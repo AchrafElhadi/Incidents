@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../services/client.service';
 import { Client } from '../persons.model';
+import { AuthenticationService } from '../services/authentication.service';
 @Component({
   selector: 'app-admin-clients',
   templateUrl: './admin-clients.component.html',
@@ -9,9 +10,11 @@ import { Client } from '../persons.model';
 export class AdminClientsComponent implements OnInit {
 
   clients!:Array<Client>
-  constructor(private clientService:ClientService) { }
+  constructor(    private authentServ:AuthenticationService
+,private clientService:ClientService) { }
 
   ngOnInit(): void {
+    this.authentServ.isAdmin()
     this.clientService.getClients().subscribe({
       next:res=>{
         this.clients=res;

@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { IncidentsService } from '../services/incidents.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-createincident',
@@ -16,11 +17,11 @@ export class CreateincidentComponent implements OnInit {
   nameForm!:FormGroup
   obj:string=''
   filee!:any
-  file!:File[];
+  file: File[]=[];
   fileUrl: any;
   url: any;
   data:any;
-  constructor(private router:Router,private formBuilder:FormBuilder,private http:HttpClient,private incideService:IncidentsService,private sanitizer: DomSanitizer) { 
+  constructor(private router:Router,private formBuilder:FormBuilder,private authentServ:AuthenticationService,private http:HttpClient,private incideService:IncidentsService,private sanitizer: DomSanitizer) { 
     this.nameForm=this.formBuilder.group({
       objet:'',
       description:'',
@@ -40,7 +41,7 @@ export class CreateincidentComponent implements OnInit {
     // const blob = new Blob([this.data], { type: 'application/octet-stream' });
 
     // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-   
+    this.authentServ.isClient()
   }
 
   getdoc(event:any)
@@ -66,10 +67,16 @@ export class CreateincidentComponent implements OnInit {
     data.append('adresse',this.nameForm.value.adresse)
     data.append('raison',this.nameForm.value.raison)
    
+
       for(let i=0;i<this.file.length;i++)
           data.append('document[]',this.file[i])
- 
-    data.append('client_id',"1")
+   
+    let text=localStorage.getItem("user")
+    let user
+    if(text)
+      user=JSON.parse(text)
+    
+    data.append('client_id',user.id)
     
     this.incideService.postIncident(data).subscribe(res=>{
       console.log(res)

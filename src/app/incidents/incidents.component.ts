@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Incident } from '../incidents.model';
 import { Incidentpagination } from '../incidents.model';
+import { AuthenticationService } from '../services/authentication.service';
 import { IncidentsService } from '../services/incidents.service';
 
 @Component({
@@ -13,10 +14,11 @@ import { IncidentsService } from '../services/incidents.service';
 export class IncidentsComponent implements OnInit {
 
   incidents!:Incidentpagination
-  constructor(private incidentService:IncidentsService) { }
+  constructor(private authentServ:AuthenticationService,private incidentService:IncidentsService) { }
 
 
   ngOnInit(): void {
+    this.authentServ.isClient()
    this.getIncBypage(0)
   
 
@@ -29,7 +31,12 @@ export class IncidentsComponent implements OnInit {
 
   getIncBypage(pageNum:Number)
   {
-    this.incidentService.getIncidents(pageNum).subscribe(res=>{
+    let text=localStorage.getItem("user")
+    let user
+    if(text)
+      user=JSON.parse(text)
+ 
+    this.incidentService.getIncidents(pageNum,user.id).subscribe(res=>{
       this.incidents=res;
       console.log(res)
     },error=>console.log(error))

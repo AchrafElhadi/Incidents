@@ -28,7 +28,13 @@
                  <h6>Date creation</h6>
                  <p>{{incident.creation}}</p>
                  <h6>Statut</h6>
-                 <p>{{incident.status}}</p>
+                 <!-- <p>{{incident.status}}</p> -->
+                 <form [formGroup]="statusform" (change)="Poststatus()">
+                    <select   class="form-select mb-3" aria-label="Default select example" formControlName="status"  >
+                        <option >Non resolu</option>
+                        <option >resolu</option>
+                    </select>   
+                </form>  
                  <h6>Gravite</h6>
                  <p>{{convertToname(incident.gravite) }}</p>
                 

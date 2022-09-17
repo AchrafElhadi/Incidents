@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  isclient:boolean=false
+  user:any
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
+    let text=localStorage.getItem("user")
+    let user
+    if(text!=null)
+    {
+      console.log(text)
+      user=JSON.parse(text)
+      console.log(user)
+
+      this.isclient= user.rolesList.find((x: { roleName: string; })=>x.roleName=="Client")?true:false
+      this.user=user
+    }
+  }
+  logout()
+  {
+    localStorage.removeItem("user")
+    window.location.href="/"
+
+
   }
 
 }

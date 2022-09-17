@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
 import { ConsultantService } from '../services/consultant.service';
 import { IncidentsService } from '../services/incidents.service';
 
@@ -10,9 +11,11 @@ import { IncidentsService } from '../services/incidents.service';
 export class ConsultantIncidentsComponent implements OnInit {
 
   incidents!:any
-  constructor(private consultservice:ConsultantService,private incidentserv:IncidentsService) { }
+  constructor(private authentServ:AuthenticationService,private consultservice:ConsultantService,private incidentserv:IncidentsService) { }
 
   ngOnInit(): void {
+    this.authentServ.isConsultant()
+
     this.getIncBypage(0)
   }
   convertToName(num:string):string
@@ -22,7 +25,12 @@ export class ConsultantIncidentsComponent implements OnInit {
 
   getIncBypage(pageNum:number)
   {
-    this.consultservice.getincidents(pageNum,5).subscribe(res=>{
+    let text=localStorage.getItem("user")
+    let user
+    if(text)
+      user=JSON.parse(text)
+      
+    this.consultservice.getincidents(pageNum,user.id).subscribe(res=>{
       this.incidents=res;
       console.log(res)
     },error=>console.log(error))

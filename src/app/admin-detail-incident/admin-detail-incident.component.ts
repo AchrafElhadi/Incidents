@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultantService } from '../services/consultant.service';
 import { IncidentsService } from '../services/incidents.service';
 import {Stomp} from '@stomp/stompjs'
+import { AuthenticationService } from '../services/authentication.service';
 @Component({
   selector: 'app-admin-detail-incident',
   templateUrl: './admin-detail-incident.component.html',
@@ -15,9 +16,11 @@ export class AdminDetailIncidentComponent implements OnInit {
   consultants:any
   consultform!:FormGroup
   incidentId:number=Number( this.route.snapshot.paramMap.get("id"))
-  constructor(private formbuild:FormBuilder ,private routenav:Router,private incideService:IncidentsService,private route: ActivatedRoute,private consultantService:ConsultantService) { }
+  constructor(    private authentServ:AuthenticationService,
+private formbuild:FormBuilder ,private routenav:Router,private incideService:IncidentsService,private route: ActivatedRoute,private consultantService:ConsultantService) { }
 
   ngOnInit(): void {
+    this.authentServ.isAdmin()
     this.consultform=this.formbuild.group(
       {
           consult:null

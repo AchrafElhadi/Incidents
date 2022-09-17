@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Incident } from '../incidents.model';
+import { AuthenticationService } from '../services/authentication.service';
 import { IncidentsService } from '../services/incidents.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class EditIncidentComponent implements OnInit {
   url: any;
   data:any;
   inc!:Incident
-  constructor(private router: Router ,private formBuilder:FormBuilder,private incideService:IncidentsService,private route:ActivatedRoute) { 
+  constructor(private authentServ:AuthenticationService,private router: Router ,private formBuilder:FormBuilder,private incideService:IncidentsService,private route:ActivatedRoute) { 
     this.nameForm=this.formBuilder.group({
       id:'',
       objet:'',
@@ -35,6 +36,9 @@ export class EditIncidentComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.authentServ.isClient()
+
     this.incideService.getDetailIncident(Number(this.route.snapshot.paramMap.get("id"))).subscribe({
       next:(res)=>{
        res.gravite=(this.incideService.convertNumToVal(res.gravite))
@@ -73,11 +77,16 @@ export class EditIncidentComponent implements OnInit {
     data.append('telephone',this.nameForm.value.telephone)
     data.append('adresse',this.nameForm.value.adresse)
     data.append('raison',this.nameForm.value.raison)
+    data.append('status',this.inc.status)
     for(let i=0;i<this.file.length;i++)
     data.append('document[]',this.file[i])
 
+    let text=localStorage.getItem("user")
+    let user
+    if(text)
+      user=JSON.parse(text)
  
-    data.append('client_id',"1")
+    data.append('client_id',user.id)
     data.append('gravite',grav)
     //data.append('gravite',this.nameForm.value.gravite)
     this.incideService.putEditIncident(Number(this.route.snapshot.paramMap.get("id")),data).subscribe(res=>{

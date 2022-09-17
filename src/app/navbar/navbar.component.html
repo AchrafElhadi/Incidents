@@ -26,8 +26,22 @@
             <a class="nav-link" href="#">Info</a>
           </li>
         </ul>
-        <a href="#"  class="nav-link text-white" style="text-align: none;"><i class="bi bi-person-fill"></i>
-            Login</a>
+            <a *ngIf="!isclient;else not" routerLink="/login"  class="nav-link text-white" style="text-align: none;"><i class="bi bi-person-fill"></i>
+              Login
+            </a>
+            <ng-template #not>
+              <li class="nav-item dropdown" style=" list-style-type: none;">
+
+              <a class="nav-link dropdown-toggle text-white"  href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-fill"></i>{{" "+user.nom+" "+user.prenom}}
+              </a>
+
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><button class="dropdown-item" (click)="logout()" >Logout</button></li>
+               
+              </ul>
+              </li>
+            </ng-template>
       </div>
     </div>
 

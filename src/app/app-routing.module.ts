@@ -16,6 +16,9 @@ import { AdminCreateConsultantComponent } from './admin-create-consultant/admin-
 import { ConsultantlayoutComponent } from './consultantlayout/consultantlayout.component';
 import { ConsultantIncidentsComponent } from './consultant-incidents/consultant-incidents.component';
 import { ConsultantDetailIncidentComponent } from './consultant-detail-incident/consultant-detail-incident.component';
+import { LoginComponent } from './login/login.component';
+import { ConsultantLoginComponent } from './consultant-login/consultant-login.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 const routes: Routes = [
 
  
@@ -26,18 +29,18 @@ const routes: Routes = [
     {path:'DetailIncident/:id',component:DetailIncidentComponent},
     {path:'EditIncident/:id',component:EditIncidentComponent},
     {path:'Incidents',component:IncidentsComponent},
+    {path:'login',component:LoginComponent}
 
   ]},
   {path:'admin',component:AdminLayoutComponent,children:[
-    {path:'createadmin',component:CreateincidentComponent},
     {path:'createadmin',component:CreateincidentComponent},
     {path:'incidents',component:AdminIncidentsComponent},
     {path:'DetailIncident/:id',component:AdminDetailIncidentComponent},
     {path:'CreateClient',component:AdminCreateClientComponent},
     {path:'clients',component:AdminClientsComponent},
     {path:'consultants',component:AdminConsultantsComponent},
-    {path:'consultants',component:AdminConsultantsComponent},
-    {path:'CreateConsultant',component:AdminCreateConsultantComponent}
+    {path:'CreateConsultant',component:AdminCreateConsultantComponent},
+    {path:'login',component:AdminLoginComponent}
 
 
 
@@ -45,7 +48,9 @@ const routes: Routes = [
 
   {path:'consultant',component:ConsultantlayoutComponent,children:[
     {path:'incidents',component:ConsultantIncidentsComponent},
-    {path:'DetailIncident/:id',component:ConsultantDetailIncidentComponent}
+    {path:'DetailIncident/:id',component:ConsultantDetailIncidentComponent},
+    {path:'login',component:ConsultantLoginComponent}
+
     
   ]}
 ];

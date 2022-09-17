@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 import { ClientService } from '../services/client.service';
 
 @Component({
@@ -12,20 +13,21 @@ export class AdminCreateClientComponent implements OnInit {
 
   formclient!:FormGroup
 
-  constructor(private formbuilder:FormBuilder,private navRoute:Router,private clientservice:ClientService) { 
+  constructor(    private authentServ:AuthenticationService
+,private formbuilder:FormBuilder,private navRoute:Router,private clientservice:ClientService) { 
     this.formclient=this.formbuilder.group(
       {
         nom:'',
         prenom:'',
         numero:'',
-        email:'',
+        username:'',
         password:''
       }
     )
   }
 
   ngOnInit(): void {
-    
+    this.authentServ.isAdmin()
   }
 
   postClient()

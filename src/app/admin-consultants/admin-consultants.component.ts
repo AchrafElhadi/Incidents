@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Consultant } from '../persons.model';
+import { AuthenticationService } from '../services/authentication.service';
 import { ConsultantService } from '../services/consultant.service';
 
 @Component({
@@ -12,11 +13,12 @@ import { ConsultantService } from '../services/consultant.service';
 export class AdminConsultantsComponent implements OnInit {
 
   consultants!:Array<Consultant>
-   constructor(private navconsult:Router,private consultantService:ConsultantService) {
+   constructor(    private authentServ:AuthenticationService
+,private navconsult:Router,private consultantService:ConsultantService) {
    }
 
   ngOnInit(): void {
-
+    this.authentServ.isAdmin()
    this.consultantService.getconsultants().subscribe({
     next:(res)=>
     {

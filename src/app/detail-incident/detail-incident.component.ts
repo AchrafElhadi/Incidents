@@ -5,6 +5,8 @@ import { MessageService } from '../services/message.service';
 import * as sockjs from 'sockjs-client'
 import { CompatClient, Stomp } from '@stomp/stompjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthenticationService } from '../services/authentication.service';
+import { Incident } from '../incidents.model';
 
 @Component({
   selector: 'app-detail-incident',
@@ -13,22 +15,30 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class DetailIncidentComponent implements OnInit {
 
-  incident!:any
+  incident!:Incident
   messages:any
   stompclient!:CompatClient
   file!:File[];
 
   formMessage!:FormGroup
-  constructor(private formbuilder:FormBuilder ,private incideService:IncidentsService,private route: ActivatedRoute,private messageService:MessageService) { }
+  statusform!:FormGroup
+  constructor(private authentServ:AuthenticationService,private formbuilder:FormBuilder ,private incideService:IncidentsService,private route: ActivatedRoute,private messageService:MessageService) { }
 
   ngOnInit(): void {
-        
+       
+    this.authentServ.isClient()
+
     const c=sockjs("http://localhost:8000/wsServer")
     this.stompclient=Stomp.over(c)
-    this.stompclient.connect({username:localStorage.getItem("username")},()=>{
+    let text=localStorage.getItem("user")
+    let user
+    if(text)
+      user=JSON.parse(text)
+    
+    this.stompclient.connect({username:user.id},()=>{
       this.stompclient.subscribe("/user/queue/hello",(res)=>{
         this.messages=[...this.messages,JSON.parse( res.body)]
-        console.log(res.body)
+       // alert(res.body)
       //  console.log()
 
      this.formMessage.patchValue({
@@ -43,25 +53,31 @@ export class DetailIncidentComponent implements OnInit {
      }
       })
     })
-   
-    this.formMessage=this.formbuilder.group({
-      message:'',
-      receiver:'gogo',
-      type:'Client',
-      incident_id:'1',
-      person_id:'1'
+   const idinc=Number( this.route.snapshot.paramMap.get("id"))
+ 
+    this.statusform=this.formbuilder.group({
+      status:'resolu'
     })
     //     this.stompclient.send("/app/hello", {}, JSON.stringify({message:"welcome",receiver:'gogo',incident_id:'1',person_id:'1'}))
   
-    const idinc=Number( this.route.snapshot.paramMap.get("id"))
+    
     this.incideService.getDetailIncident(idinc).subscribe(res=>{
       
       
       this.incident=res
+      this.statusform.setValue({status:res.status})
       console.log(res)
     },error=>
     {
       console.log(error)
+    })
+
+    this.formMessage=this.formbuilder.group({
+      message:'',
+      receiver:'',
+      type:'Client',
+      incident_id:idinc,
+      person_id:user.id
     })
 //0000000000000000000000000000000000000000000000000000000000000000000000000
     this.messageService.getMessages(idinc).subscribe({
@@ -96,16 +112,33 @@ export class DetailIncidentComponent implements OnInit {
     //  for(let i=0;i<this.file.length;i++)
     //       data.append('document[]',this.file[i])
 
-    console.log("jjjj"+this.formMessage.value.type)
-        this.messageService.postMessage(this.formMessage.value).subscribe({
+    if(this.formMessage.value.receiver=='')
+    this.formMessage.patchValue({receiver:this.incident.consultant_id})
+
+         this.messageService.postMessage(this.formMessage.value).subscribe({
           next:res=>{
-            console.log(res)
+            this.messages=[...this.messages,{message:this.formMessage.value.message}]
+            this.formMessage.patchValue({message:''})
+            let chatHistory = document.getElementById("messageBody");
+
+            if(chatHistory!=null)
+            {
+                chatHistory.scrollTop=chatHistory.scrollHeight
+            }
           },
           error:err=>{
             console.log(err)
           }
         })
       //console.log(this.formMessage.value)
+  }
+  Poststatus()
+  {
+
+    console.log(this.statusform.value)
+   this.incideService.putEditStatusIncident( Number(this.route.snapshot.paramMap.get("id")),this.statusform.value).subscribe({
+    next:res=>alert("Edited successfully")
+   })
   }
 
   // getdoc(event:any)
